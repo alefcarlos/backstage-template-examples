@@ -1,0 +1,29 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{values.component_id | dump}}
+  {%- if values.description %}
+  description: ${{values.description | dump}}
+  {%- endif %}
+  annotations:
+    param1: '{{ values.param1 }}'
+    param2: '{{ value.param2 }}'
+spec:
+  type: website
+  lifecycle: experimental
+  owner: ${{values.owner | dump}}
+  providesApis:
+    - ${{values.component_id | dump}}
+
+---
+
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: ${{values.component_id | dump}}
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: ${{values.owner | dump}}
+  definition:
+    $text: ./openapi.json
